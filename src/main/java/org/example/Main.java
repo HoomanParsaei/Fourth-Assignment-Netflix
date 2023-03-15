@@ -1,5 +1,6 @@
 package org.example;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,8 +16,6 @@ public class Main {
     static int duration;
     static int number;
     static double rating;
-    static ArrayList<String> caster;
-    static ArrayList<TVShow> all_movie;
     public static void main(String[] args) {
         test();
         runMenu();
@@ -104,9 +103,13 @@ public class Main {
                     username = scanner.nextLine();
                     System.out.println("PLS enter password");
                     password = scanner.nextLine();
-                    if (netflixService.login(username, password)){
-                        ArrayList<TVShow> recommend_video = netflixService.getCurrent_user().getRecommendations(all_movie);
-                        System.out.println(recommend_video);
+                    if (netflixService.login(username, password)) {
+                        ArrayList<TVShow> allTvShows = netflixService.get_all_tv_shows();
+                        User currentUser = netflixService.getCurrent_user();
+                        ArrayList<TVShow> recommend_video = currentUser.getRecommendations(allTvShows);
+                        for (TVShow show : recommend_video) {
+                            System.out.println(show.getTitle());
+                        }
                         System.out.println("You can search movie & and TV Shows");
                         System.out.println("1-Search by title");
                         System.out.println("2-Search by genre");
@@ -121,7 +124,9 @@ public class Main {
                             case 1 -> {
                                 System.out.println("Enter title:");
                                 title = scanner.nextLine();
-                                netflixService.searchByTitle(title);
+                                for (TVShow tvShow : netflixService.searchByTitle(title)){
+                                    System.out.println(tvShow);
+                                }
                             }
                             case 2 -> {
                                 System.out.println("Enter genre:");
@@ -195,11 +200,12 @@ public class Main {
                     number = scanner.nextInt();
                     scanner.nextLine();
                     System.out.println("PLS Enter casters");
+                    ArrayList<String> cast = new ArrayList<>();
                     for (int i=0;i<number;i++){
                         String cast_name = scanner.nextLine();
-                        caster.add(cast_name);
+                        cast.add(cast_name);
                     }
-                    TVShow new_add = new TVShow(title,genre,year,duration,rating,caster);
+                    TVShow new_add = new TVShow(title,genre,year,duration,rating,cast);
                     netflixService.addTVShow(new_add);
                 }
                 case 5 -> {

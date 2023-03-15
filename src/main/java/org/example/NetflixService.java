@@ -1,6 +1,8 @@
 package org.example;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 
 class NetflixService {
     /*
@@ -125,5 +127,12 @@ class NetflixService {
                 '}';
     }
 
-
+    public ArrayList<TVShow> get_all_tv_shows() {
+        ArrayList<TVShow> all_tv_shows = new ArrayList<>();
+        for (TVShow show : this.tvShows) {
+            all_tv_shows.add(show);
+        }
+        // TODO add movies to all_tv_shows
+        return all_tv_shows;
+    }
 }
