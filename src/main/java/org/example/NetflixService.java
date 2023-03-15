@@ -132,7 +132,6 @@ class NetflixService {
         for (TVShow show : this.tvShows) {
             all_tv_shows.add(show);
         }
-        // TODO add movies to all_tv_shows
         return all_tv_shows;
     }
 }
