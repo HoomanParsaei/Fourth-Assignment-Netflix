@@ -1,5 +1,6 @@
 # Fourth-Assignment-Netflix
 
+![UML Diagram](assets/final.svg)
 
 ## Introduction
 In this assignment, you will create a simulation of Netflix. The program should allow users to create and manage their accounts and profiles, browse movies, and manage their movies. The program should be designed using object-oriented programming principles.
