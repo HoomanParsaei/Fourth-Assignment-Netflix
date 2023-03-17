@@ -1,8 +1,8 @@
 package org.example;
 
+import javax.sound.midi.Patch;
 import java.util.*;
 import java.util.stream.Collectors;
-
 class User {
     /*
      * The user should contain username password.
@@ -94,7 +94,7 @@ class User {
             System.out.println("Nothing in your favorite list");
         }
         else {
-            toString();
+            System.out.println(toString());
         }
     }
     public void watch(TVShow show){
@@ -113,8 +113,10 @@ class User {
         ArrayList<ScoreMovies> score_array  = new ArrayList<>();
         for (TVShow movie : all_movie){
             float score = get_recommendation_score(movie);
-            ScoreMovies scoreMovie = new ScoreMovies(movie,score);
-            score_array.add(scoreMovie);
+            if (score>0){
+                ScoreMovies scoreMovie = new ScoreMovies(movie,score);
+                score_array.add(scoreMovie);
+            }
         }
         score_array.sort(Comparator.comparingDouble(scoreMovie->scoreMovie.score));
         return score_array.stream().map(scoreMovie -> scoreMovie.tvShow).collect(Collectors.toCollection(ArrayList<TVShow>::new));                                    // Map it back to a string
@@ -122,8 +124,11 @@ class User {
 
     public float get_recommendation_score(TVShow movie){
         float score = 0;
-        for (TVShow movies : watch_history){
+        for (TVShow movies : favorite_movie){
             if (movies.getGenre().equals(movie.getGenre())){
+                score++;
+            }
+            if (movies.getTitle().equals(movie.getTitle())){
                 score++;
             }
         }

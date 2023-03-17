@@ -158,11 +158,9 @@ public class Main {
                             case 5 -> {
                                 System.out.println("Enter title:");
                                 title = scanner.nextLine();
-                                for (TVShow tv : netflixService.getCurrent_user().getFavorite_movie()) {
-                                    if (!tv.getTitle().equals(title)) {
+                                for (TVShow tv : netflixService.get_all_tv_shows()) {
+                                    if (tv.getTitle().equals(title)) {
                                         netflixService.getCurrent_user().addToFavorites(tv);
-                                    } else {
-                                        System.out.println("THIS SHOW IN YOUR FAVORITE LIST ALREADY");
                                     }
                                 }
                             }
